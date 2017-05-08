@@ -7,10 +7,10 @@ var winston = require('winston');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var users = require('./server/auth').users;
+var fs = require('fs');
 
 const api = require('./server/routes/api');
+
 var app = express();
 
 app.use(logger('dev'));
@@ -21,24 +21,6 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 // Set up passport
 app.use(passport.initialize());
-passport.use(new LocalStrategy({
-    usernameField: 'username',
-    passwordField: 'password'
-},
-    function (username, password, done) {
-        winston.info('logging in: ' + username + ' : ' + password);
-        if (users.hasOwnProperty(username)) {
-            var user = users[username];
-            if (user.password === password) {
-                return done(null, user);
-            }
-        }
-
-        return done(null, false, {
-            message: 'Wrong username or password'
-        });
-    }
-));
 
 // Set our api routes
 app.use('/api', api);

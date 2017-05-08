@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import { NewUser } from '../new-user.type';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+    constructor(private apiService: ApiService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    login = {
+        username: '',
+        password: ''
+    }
+
+    register: NewUser = {
+        username: '',
+        password: '',
+        first_name: '',
+        last_name: '',
+        phone: ''
+    };
+
+    onLoginSubmit() {
+        console.log('logging in ' + this.login);
+        this.apiService.login(this.login.username, this.login.password)
+            .subscribe(data => console.log(data), error => console.log(error));
+        this.apiService.isLoggedIn();
+    }
+
+    onRegisterSubmit() {
+        console.log('registering new user');
+        this.apiService.register(this.register)
+            .subscribe(data => console.log(data), error => console.log(error));
+    }
 
 }
