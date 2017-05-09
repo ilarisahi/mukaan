@@ -1,0 +1,38 @@
+﻿<div class="card">
+  <div class="card-block">
+    <h4 class="card-title">{{ event.name }}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{ event.artist }}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">{{ event.starts }} - {{ event.ends }} || {{ event.venue }}</h6>
+    <p class="card-text">{{ event.description }}</p>
+  </div>
+  <div class="card-footer text-muted">
+    <form (ngSubmit)="onTicketsSubmit()" #ticketsForm="ngForm">
+      <input type="hidden" id="event_id" [(ngModel)]="tickets.event_id" name="event_id" #event_id="ngModel">
+      <div class="form-group">
+        <label for="class_1">1. class tickets (price {{event.fee * 2.5}})</label>
+        <select class="form-control" id="class_1" [(ngModel)]="tickets.class_1" name="class_1" #class_1="ngModel">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="class_2">2. class tickets (price {{event.fee * 1.5}})</label>
+        <select class="form-control" id="class_2" [(ngModel)]="tickets.class_2" name="class_2" #class_2="ngModel">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="class_3">3. class tickets (price {{event.fee}})</label>
+        <select class="form-control" id="class_3" [(ngModel)]="tickets.class_3" name="class_3" #class_3="ngModel">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-default">Buy tickets!</button>
+    </form>
+  </div>
+</div>

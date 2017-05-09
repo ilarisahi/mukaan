@@ -2,8 +2,9 @@
 var jwt = require('jsonwebtoken');
 
 class User {
-    constructor(id, first_name, last_name, phone, group) {
-        this.id = id;        
+    constructor(id, username, first_name, last_name, phone, group) {
+        this.id = id;
+        this.username = username;
         this.first_name = first_name;
         this.last_name = last_name;
         this.phone = phone;
@@ -16,16 +17,17 @@ class User {
 
         return jwt.sign({
             id: this.id,
-            first_name: this.first_name,
-            last_name: this.last_name,
-            phone: this.phone,
-            group: this.group,
+            username: this.username,
+            first_name: '' + this.first_name,
+            last_name: '' + this.last_name,
+            phone: '' + this.phone,
+            group: '' + this.group,
             exp: parseInt(expiry.getTime() / 1000)
         }, 'secRET');
     }
 
     toString() {
-        return 'id=' + this.id + ', first_name=' + this.first_name + ', last_name=' + this.last_name + ', ' + 'phone=' + this.phone + ', ' + 'group=' + this.group; 
+        return 'id=' + this.id + 'username=' + this.username + ', first_name=' + this.first_name + ', last_name=' + this.last_name + ', ' + 'phone=' + this.phone + ', ' + 'group=' + this.group; 
     };
 };
 

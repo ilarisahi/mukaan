@@ -39,6 +39,7 @@ passport.use(new LocalStrategy({
             var user = users[username];
             if (user.password === password) {
                 winston.info('authenticated user: ' + user.id);
+                user.username = username;
                 return done(null, user);
             }
         }
@@ -65,6 +66,8 @@ router.post('/register', function(req, res, next) {
                 res.status(500).send({ message: 'error' });
             } else {
                 user.id = this.lastID;
+                user.username = req.body.username;
+                user.group = "client";
 
                 users[req.body.username] = {
                     id: user.id,
@@ -104,15 +107,15 @@ router.post('/login', function(req, res, next) {
 
         if (user) {
             var u;
-            if (user.group === 'admin') {
-                u = new User(user.id, 'Adam', 'Admin', '05050', user.group);
+            if (user.id === 1) {
+                u = new User(user.id, 'admin', 'Adam', 'Admin', '05050', user.group);
                 winston.info('logged in as: ' + u);
                 token = u.generateJwt();
                 res.status(200).send({
                     "token": token
                 });
-            } else if (user.group === "employee") {
-                u = new User(user.id, 'Emma', 'Employee', '04040', user.group);
+            } else if (user.id === 2) {
+                u = new User(user.id, 'employee', 'Emma', 'Employee', '04040', user.group);
                 winston.info('logged in as: ' + u);
                 token = u.generateJwt();
                 res.status(200).send({
@@ -121,7 +124,13 @@ router.post('/login', function(req, res, next) {
             } else {
                 db.serialize(function() {
                     db.get(db_queries[1], user.id, function(err, row) {
-                        u = new User(user.id, row.first_name, row.last_name, row.phone, user.group);
+                        let u = new User();
+                        u.id = user.id;
+                        u.username = user.username;
+                        u.first_name = row.first_name;
+                        u.last_name = row.last_name;
+                        u.phone = row.phone;
+                        u.group = user.group;
                         winston.info('logged in as: ' + u);
                         token = u.generateJwt();
                         res.status(200).send({
@@ -141,17 +150,67 @@ router.get('/profile', auth, function (req, res, next) {
     if (!req.user.id) {
         res.status(401).send({ error: "Unauthorized user" });
     } else {
-        if (req.user.group === 'admin') {
-            res.status(200).send(new User(req.user.id, 'Adam', 'Admin', '05050', req.user.group));
-        } else if (req.user.group === "employee") {
-            res.status(200).send(new User(req.user.id, 'Emma', 'Employee', '04040', req.user.group));
+        if (req.user.id === '1') {
+            res.status(200).send(new User(req.user.id, 'admin', 'Adam', 'Admin', '05050', 'admin'));
+        } else if (req.user.id === "2") {
+            res.status(200).send(new User(req.user.id, 'employee', 'Emma', 'Employee', '04040', 'employee'));
         } else {
             db.serialize(function () {
                 db.get(db_queries[1], req.user.id, function (err, row) {
-                    res.status(200).send(new User(req.user.id, row.first_name, row.last_name, row.phone, req.user.group));
+                    let u = new User();
+                    u.id = req.user.id;
+                    u.username = req.user.username;
+                    u.first_name = row.first_name;
+                    u.last_name = row.last_name;
+                    u.phone = row.phone;
+                    u.group = req.user.group;
+                    console.log(u);
+                    res.status(200).send(u);
                 });
             });
         }
+    }
+});
+
+router.put('/profile', auth, function (req, res, next) {
+    if (!req.user.id) {
+        return res.status(401).send({ error: "Unauthorized user" });
+    } else {
+        console.log('REQ USER: ' + req.user.username);
+        users[req.user.username].group = req.body.group;
+
+        winston.info(users);
+
+        fs.writeFile('./server/auth.json', JSON.stringify(users), 'utf8', function (err) {
+            if (err) {
+                winston.error(err)
+                return res.status(500).send({ message: 'error' });
+            } else {
+                if (req.user.id != 1 || req.user.id != 2) {
+                    db.serialize(function () {
+                        db.run(db_queries[4], req.body.first_name, req.body.last_name, req.body.phone, req.user.id, function (err) {
+                            if (err) {
+                                winston.log(err);
+                                return res.status(500).send({ message: 'error' });
+                            }
+                        });
+                    });
+                }
+                let u = new User();
+                u.id = req.user.id;
+                u.username = req.user.username;
+                u.first_name = req.body.first_name;
+                u.last_name = req.body.last_name;
+                u.phone = req.body.phone;
+                u.group = req.body.group;
+                winston.info('logged in as: ' + u);
+                let token = u.generateJwt();
+                return res.status(200).send({
+                    "token": token
+                });
+            }
+        });
+       
     }
 });
 
@@ -161,6 +220,38 @@ router.get('/events', function (req, res, next) {
             if (err)
                 winston.error(err);
             res.send(rows);
+        });
+    });
+});
+
+router.get('/events/:id', function (req, res, next) {
+    db.serialize(function () {
+        db.get(db_queries[5], req.params.id, function (err, row) {
+            if (err || row == null) {
+                winston.error(err);
+                return res.status(404).send({ message: 'event not found' });
+            }
+                
+            return res.status(200).send(row);
+        });
+    });
+});
+
+router.post('/events/:id', auth, function (req, res, next) {
+    db.serialize(function () {
+        var stmt = db.prepare(db_queries[6]);
+        for (let i = 0; i < req.body.class_1; i++) {
+            stmt.run(req.params.id, req.user.id, 1);
+        }
+        for (let i = 0; i < req.body.class_2; i++) {
+            stmt.run(req.params.id, req.user.id, 2);
+        }
+        for (let i = 0; i < req.body.class_3; i++) {
+            stmt.run(req.params.id, req.user.id, 3);
+        }
+        stmt.finalize(function (err) {
+            if (err) return res.status(500).send({ message: 'transaction failed' });
+            return res.status(200).send({ message: 'transaction succeeded' });
         });
     });
 });

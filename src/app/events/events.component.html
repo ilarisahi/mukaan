@@ -1,3 +1,15 @@
-﻿<ul>
-  <li *ngFor="let event of eventsArray">{{ event.name }}</li>
-</ul>
+﻿<div class="event-unit" *ngFor="let event of eventsArray">
+  <div class="card">
+    <div class="card-block">
+      <h4 class="card-title">{{ event.name }}</h4>
+      <h6 class="card-subtitle mb-2 text-muted">{{ event.artist }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">{{ event.starts }} - {{ event.ends }} || {{ event.venue }}</h6>
+      <p class="card-text">{{ event.description }}</p>
+    </div>
+    <div *ngIf="isLoggedIn" class="card-footer">
+      <button (click)="selectEvent(event.id)" class="btn btn-primary">Buy tickets</button>
+    </div>
+  </div>
+  <div style="margin-top: 20px"></div>
+</div>
+

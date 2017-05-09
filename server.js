@@ -17,13 +17,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'dist')));
 
 // Set up passport
 app.use(passport.initialize());
 
 // Set our api routes
 app.use('/api', api);
+app.use(express.static(path.join(__dirname, '/dist')));
+app.use(express.static(path.join(__dirname, '/public')));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 // Catch all other routes and return the index file
 app.get('*', function(req, res) {

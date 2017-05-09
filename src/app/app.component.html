@@ -1,8 +1,15 @@
-﻿<h1>
+﻿
+<div class="container">
+  <ng-loading-bar></ng-loading-bar>
+<h1>
   {{title}}
 </h1>
 <nav>
-  <a routerLink="/login" routerLinkActive="active">Login / Register</a>
-  <a routerLink="/events" routerLinkActive="active">Events</a>
+  <p>
+    <button *ngIf="!isLoggedIn" type="button" routerLink="/login" routerLinkActive="active" class="btn btn-primary btn-lg">Login | Register</button>
+    <button *ngIf="isLoggedIn" type="button" routerLink="/profile" routerLinkActive="active" class="btn btn-primary btn-lg">Profile</button>
+    <button type="button" routerLink="/events" routerLinkActive="active" class="btn btn-primary btn-lg">Events</button>
+  </p>
 </nav>
 <router-outlet></router-outlet>
+</div>

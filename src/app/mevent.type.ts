@@ -1,4 +1,5 @@
 ﻿export interface MEvent {
+    id: number,
     name: string,
     description: string,
     fee: string,

@@ -1,0 +1,25 @@
+﻿<button type="button" (click)="logout()" class="btn btn-primary btn-lg">Logout</button>
+<form (ngSubmit)="onProfileSubmit()" #profileForm="ngForm">
+  <input type="hidden" id="user_id" [(ngModel)]="profile.user_id" name="user_id" #user_id="ngModel">
+  <div class="form-group">
+    <label for="first_name">First name</label>
+    <input type="text" class="form-control" id="first_name" placeholder="First name" [(ngModel)]="profile.first_name" name="firstName" #firstName="ngModel">
+  </div>
+  <div class="form-group">
+    <label for="last_name">Last name</label>
+    <input type="text" class="form-control" id="last_name" placeholder="Last name" [(ngModel)]="profile.last_name" name="lastName" #lastName="ngModel">
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input type="text" class="form-control" id="phone" placeholder="Phone" [(ngModel)]="profile.phone" name="phone" #phone="ngModel">
+  </div>
+  <div class="form-group">
+    <label for="group">User group</label>
+    <select class="form-control" id="group" [(ngModel)]="profile.group" name="group" #group="ngModel">
+      <option>admin</option>
+      <option>employee</option>
+      <option>client</option>
+    </select>
+  </div>  
+  <button type="submit" class="btn btn-default">Update profile!</button>
+</form>

@@ -29,15 +29,12 @@ export class LoginComponent implements OnInit {
 
     onLoginSubmit() {
         console.log('logging in ' + this.login);
-        this.apiService.login(this.login.username, this.login.password)
-            .subscribe(data => console.log(data), error => console.log(error));
-        this.apiService.isLoggedIn();
+        this.apiService.login(this.login.username, this.login.password); 
     }
 
     onRegisterSubmit() {
         console.log('registering new user');
-        this.apiService.register(this.register)
-            .subscribe(data => console.log(data), error => console.log(error));
+        this.apiService.register(this.register);
     }
 
 }
