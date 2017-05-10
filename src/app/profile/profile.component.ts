@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
         group: null
     }
 
+    events: {eic_id: number, event: string, venue: string, starts: Date, class_1: number, class_2: number, class_3: number}[] = []
+
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
@@ -26,6 +28,14 @@ export class ProfileComponent implements OnInit {
               this.profile = data;
           },
           (err) => {
+              console.log('authorization error: ' + err);
+          });
+      this.apiService.getClientEvents()
+          .subscribe(data => {
+              console.log('user-events:' + data);
+              this.events = data;
+          },
+          err => {
               console.log('authorization error: ' + err);
           });
   }

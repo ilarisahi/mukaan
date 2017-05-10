@@ -59,6 +59,11 @@ router.get('/', function(req, res) {
 router.post('/register', function(req, res, next) {
     winston.info(users);
     var user = new User(null, req.body.first_name, req.body.last_name, req.body.phone, 'client');
+
+    if (users.hasOwnProperty(req.body.username)) {
+        return res.status(500).send({ message: 'registration failed' });
+    }
+
     db.serialize(function() {
         db.run(db_queries[2], req.body.first_name, req.body.last_name, req.body.phone, function(err) {
             if (err) {
@@ -176,7 +181,7 @@ router.put('/profile', auth, function (req, res, next) {
     if (!req.user.id) {
         return res.status(401).send({ error: "Unauthorized user" });
     } else {
-        console.log('REQ USER: ' + req.user.username);
+        winston.info('REQ USER: ' + req.user.username);
         users[req.user.username].group = req.body.group;
 
         winston.info(users);
@@ -252,6 +257,69 @@ router.post('/events/:id', auth, function (req, res, next) {
         stmt.finalize(function (err) {
             if (err) return res.status(500).send({ message: 'transaction failed' });
             return res.status(200).send({ message: 'transaction succeeded' });
+        });
+    });
+});
+
+router.get('/ticket-offices', function (req, res, next) {
+    db.serialize(function () {
+        db.all(db_queries[7], function (err, rows) {
+            if (err)
+                winston.error(err);
+            res.status(200).send(rows);
+        });
+    });
+});
+
+router.get('/organisers', function (req, res, next) {
+    db.serialize(function () {
+        db.all(db_queries[8], function (err, rows) {
+            if (err)
+                winston.error(err);
+            res.status(200).send(rows);
+        });
+    });
+});
+
+router.get('/venues', function (req, res, next) {
+    db.serialize(function () {
+        db.all(db_queries[9], function (err, rows) {
+            if (err)
+                winston.error(err);
+            res.status(200).send(rows);
+        });
+    });
+});
+
+router.get('/artists', function (req, res, next) {
+    db.serialize(function () {
+        db.all(db_queries[10], function (err, rows) {
+            if (err)
+                winston.error(err);
+            res.status(200).send(rows);
+        });
+    });
+});
+
+router.get('/clients', function (req, res, next) {
+    db.serialize(function () {
+        db.all(db_queries[11], function (err, rows) {
+            if (err)
+                winston.error(err);
+            res.status(200).send(rows);
+        });
+    });
+});
+
+router.get('/profile/events/', auth, function (req, res, next) {
+    db.serialize(function () {
+        winston.info(req.user.id);
+        db.all(db_queries[12], req.user.id, function (err, rows) {
+            if (err)
+                winston.error(err);
+            winston.info('Rows!' + rows);
+            winston.info(rows);
+            res.status(200).json(rows);
         });
     });
 });

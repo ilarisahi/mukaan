@@ -1,0 +1,10 @@
+﻿<div class="office-unit" *ngFor="let office of officesArray">
+  <div class="card">
+    <div class="card-block">
+      <h4 class="card-title">{{ office.address}} || {{ office.organiser_name }}</h4>
+      <h6 class="card-subtitle mb-2 text-muted">Open daily: {{ office.hours }}</h6>
+    </div>
+  </div>
+  <div style="margin-top: 20px"></div>
+</div>
+

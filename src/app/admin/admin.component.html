@@ -1,0 +1,237 @@
+﻿<ngb-tabset type="pills">
+  <ngb-tab>
+    <ng-template ngbTabTitle>Artists</ng-template>
+    <ng-template ngbTabContent>
+      <h2>Add new artist</h2>
+      <form (ngSubmit)="onNewArtistSubmit()" #newArtistForm="ngForm">
+        <div class="form-group">
+          <label for="new_artist_name">Artist name</label>
+          <input type="text" class="form-control" id="new_artist_name" placeholder="Artist name" [(ngModel)]="newArtist.name" name="new_artist_name" #new_artist_name="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_artist_category">Category</label>
+          <input type="text" class="form-control" id="new_artist_category" placeholder="Artist category" [(ngModel)]="newArtist.category" name="new_artist_category" #new_artist_category="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_artist_phone">Phone</label>
+          <input type="text" class="form-control" id="new_artist_phone" placeholder="Phone" [(ngModel)]="newArtist.phone" name="new_artist_phone" #new_artist_phone="ngModel">
+        </div>
+        <button type="submit" class="btn btn-default">Add artist</button>
+      </form>
+      <h2>Edit artists</h2>
+      <div *ngFor="let artist of artistArray | pagination:artistPage; let i = index" class="artist-container">
+        <form (ngSubmit)="onUpdateArtistSubmit(i)" #updateArtistForm="ngForm">
+          <div class="form-group">
+            <label for="update_artist_{{ artist.a_id }}_name">Artist name</label>
+            <input type="text" class="form-control" id="update_artist_{{ artist.a_id }}_name" placeholder="Artist name" [(ngModel)]="artist.name" name="update_artist_{{ artist.a_id }}_name">
+          </div>
+          <div class="form-group">
+            <label for="update_artist_{{ artist.a_id }}_category">Category</label>
+            <input type="text" class="form-control" id="update_artist_{{ artist.a_id }}_category" placeholder="Artist category" [(ngModel)]="artist.category" name="update_artist_{{ artist.a_id }}_category">
+          </div>
+          <div class="form-group">
+            <label for="update_artist_{{ artist.a_id }}_phone">Phone</label>
+            <input type="text" class="form-control" id="update_artist_{{ artist.a_id }}_phone" placeholder="Phone" [(ngModel)]="artist.phone" name="update_artist_{{ artist.a_id }}_phone">
+          </div>
+          <button type="submit" class="btn btn-default">Update artist</button><a class="btn btn-danger" (click)="onDeleteArtist(i)">Delete artist</a>
+        </form>        
+      </div>
+      <ngb-pagination [collectionSize]="artistArray?.length" [(page)]="artistPage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Venues</ng-template>
+    <ng-template ngbTabContent>
+      <h2>Add new venue</h2>
+      <form (ngSubmit)="onNewVenueSubmit()" #newVenueForm="ngForm">
+        <div class="form-group">
+          <label for="new_venue_name">Venue name</label>
+          <input type="text" class="form-control" id="new_venue_name" placeholder="Venue name" [(ngModel)]="newVenue.name" name="new_venue_name" #new_venue_name="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_venue_address">Address</label>
+          <input type="text" class="form-control" id="new_venue_address" placeholder="Venue address" [(ngModel)]="newVenue.address" name="new_venue_address" #new_venue_address="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_venue_capacity_1">1. class capacity</label>
+          <input type="text" class="form-control" id="new_venue_capacity_1" placeholder="1. capacity" [(ngModel)]="newVenue.capacity_1" name="new_venue_capacity_1" #new_venue_capacity_1="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_venue_capacity_2">2. class capacity</label>
+          <input type="text" class="form-control" id="new_venue_capacity_2" placeholder="2. capacity" [(ngModel)]="newVenue.capacity_2" name="new_venue_capacity_2" #new_venue_capacity_2="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_venue_capacity_3">3. class capacity</label>
+          <input type="text" class="form-control" id="new_venue_capacity_3" placeholder="3. capacity" [(ngModel)]="newVenue.capacity_3" name="new_venue_capacity_3" #new_venue_capacity_3="ngModel">
+        </div>
+        <button type="submit" class="btn btn-default">Add venue</button>
+      </form>
+      <h2>Edit venues</h2>
+      <div *ngFor="let venue of venueArray | pagination:venuePage; let i = index" class="venue-container">
+        <form (ngSubmit)="onUpdateVenueSubmit(i)" #updateVenueForm="ngForm">
+          <div class="form-group">
+            <label for="update_venue_{{ venue.v_id }}_name">Venue name</label>
+            <input type="text" class="form-control" id="update_venue_{{ venue.v_id }}_name" placeholder="Venue name" [(ngModel)]="venue.name" name="update_venue_{{ venue.v_id }}_name">
+          </div>
+          <div class="form-group">
+            <label for="update_venue_{{ venue.v_id }}_address">Address</label>
+            <input type="text" class="form-control" id="update_venue_{{ venue.v_id }}_address" placeholder="Venue address" [(ngModel)]="venue.address" name="update_venue_{{ venue.v_id }}_address">
+          </div>
+          <div class="form-group">
+            <label for="update_venue_{{ venue.v_id }}_capacity_1">1. class capacity</label>
+            <input type="text" class="form-control" id="update_venue_{{ venue.v_id }}_capacity_1" placeholder="1. capacity" [(ngModel)]="venue.capacity_1" name="update_venue_{{ venue.v_id }}_capacity_1">
+          </div>
+          <div class="form-group">
+            <label for="update_venue_{{ venue.v_id }}_capacity_2">2. class capacity</label>
+            <input type="text" class="form-control" id="update_venue_{{ venue.v_id }}_capacity_2" placeholder="2. capacity" [(ngModel)]="venue.capacity_2" name="update_venue_{{ venue.v_id }}_capacity_2">
+          </div>
+          <div class="form-group">
+            <label for="update_venue_{{ venue.v_id }}_capacity_3">3. class capacity</label>
+            <input type="text" class="form-control" id="update_venue_{{ venue.v_id }}_capacity_3" placeholder="3. capacity" [(ngModel)]="venue.capacity_3" name="update_venue_{{ venue.v_id }}_capacity_3">
+          </div>
+          <button type="submit" class="btn btn-default">Update venue</button><a class="btn btn-danger" (click)="onDeleteVenue(i)">Delete venue</a>
+        </form>
+        </div>
+      <ngb-pagination [collectionSize]="venueArray?.length" [(page)]="venuePage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+</ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Events (main)</ng-template>
+    <ng-template ngbTabContent>
+      
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Events (instance)</ng-template>
+    <ng-template ngbTabContent>
+
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Tickets</ng-template>
+    <ng-template ngbTabContent>
+
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Clients</ng-template>
+    <ng-template ngbTabContent>
+      <h2>Add new client</h2>
+      <form (ngSubmit)="onNewClientSubmit()" #newClientForm="ngForm">
+        <div class="form-group">
+          <label for="new_client_name">Client first name</label>
+          <input type="text" class="form-control" id="new_client_first_name" placeholder="Client first name" [(ngModel)]="newClient.first_name" name="new_client_first_name" #new_client_first_name="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_client_last_name">Client last name</label>
+          <input type="text" class="form-control" id="new_client_last_name" placeholder="Client last name" [(ngModel)]="newClient.last_name" name="new_client_last_name" #new_client_last_name="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_client_phone">Phone</label>
+          <input type="text" class="form-control" id="new_client_phone" placeholder="Phone" [(ngModel)]="newClient.phone" name="new_client_phone" #new_client_phone="ngModel">
+        </div>
+        <button type="submit" class="btn btn-default">Add client</button>
+      </form>
+      <h2>Edit clients</h2>
+      <div *ngFor="let client of clientArray | pagination:clientPage; let i = index" class="client-container">
+        <form (ngSubmit)="onUpdateClientSubmit(i)" #updateClientForm="ngForm">
+          <div class="form-group">
+            <label for="update_client_{{ client.c_id }}_first_name">Client first name</label>
+            <input type="text" class="form-control" id="update_client_{{ client.c_id }}_first_name" placeholder="Client first name" [(ngModel)]="client.first_name" name="update_client_{{ client.c_id }}_first_name">
+          </div>
+          <div class="form-group">
+            <label for="update_client_{{ client.c_id }}_last_name">Client last name</label>
+            <input type="text" class="form-control" id="update_client_{{ client.c_id }}_last_name" placeholder="Client last name" [(ngModel)]="client.last_name" name="update_client_{{ client.c_id }}_last_name">
+          </div>
+          <div class="form-group">
+            <label for="update_client_{{ client.c_id }}_phone">Phone</label>
+            <input type="text" class="form-control" id="update_client_{{ client.c_id }}_phone" placeholder="Phone" [(ngModel)]="client.phone" name="update_client_{{ client.c_id }}_phone">
+          </div>
+          <button type="submit" class="btn btn-default">Update client</button><a class="btn btn-danger" (click)="onDeleteClient(i)">Delete client</a>
+        </form>
+        
+      </div>
+      <div>Default pagination</div>
+      <ngb-pagination [collectionSize]="clientArray?.length" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" [(page)]="clientPage" aria-label="Default pagination"></ngb-pagination>
+    </ng-template>
+  </ngb-tab>
+  
+  <ngb-tab>
+    <ng-template ngbTabTitle>Organisers</ng-template>
+    <ng-template ngbTabContent>
+      <h2>Add new organiser</h2>
+      <form (ngSubmit)="onNewOrganiserSubmit()" #newOrganiserForm="ngForm">
+        <div class="form-group">
+          <label for="new_organiser_name">Organiser name</label>
+          <input type="text" class="form-control" id="new_organiser_name" placeholder="Organiser name" [(ngModel)]="newOrganiser.name" name="new_organiser_name" #new_organiser_name="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_organiser_www">WWW</label>
+          <input type="text" class="form-control" id="new_organiser_www" placeholder="Organiser WWW" [(ngModel)]="newOrganiser.www" name="new_organiser_www" #new_organiser_www="ngModel">
+        </div>
+        <button type="submit" class="btn btn-default">Add organiser</button>
+      </form>
+      <h2>Edit organisers</h2>
+      <div *ngFor="let organiser of organiserArray | pagination:organiserPage; let i = index" class="organiser-container">
+        <form (ngSubmit)="onUpdateOrganiserSubmit(i)" #updateOrganiserForm="ngForm">
+          <div class="form-group">
+            <label for="update_organiser_{{ organiser.o_id }}_name">Organiser name</label>
+            <input type="text" class="form-control" id="update_organiser_{{ organiser.o_id }}_name" placeholder="Organiser name" [(ngModel)]="organiser.name" name="update_organiser_{{ organiser.o_id }}_name">
+          </div>
+          <div class="form-group">
+            <label for="update_organiser_{{ organiser.o_id }}_www">WWW</label>
+            <input type="text" class="form-control" id="update_organiser_{{ organiser.o_id }}_www" placeholder="Organiser WWW" [(ngModel)]="organiser.www" name="update_organiser_{{ organiser.o_id }}_www">
+          </div>
+          <button type="submit" class="btn btn-default">Update organiser</button><a class="btn btn-danger" (click)="onDeleteOrganiser(i)">Delete organiser</a>
+        </form>
+
+      </div>
+      <ngb-pagination [collectionSize]="organiserArray?.length" [(page)]="organiserPage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Offices</ng-template>
+    <ng-template ngbTabContent>
+      <h2>Add new ticket office</h2>
+      <form (ngSubmit)="onNewTicketOfficeSubmit()" #newTicketOfficeForm="ngForm">
+        <div class="form-group">
+          <label for="new_ticket_office_address">Address</label>
+          <input type="text" class="form-control" id="new_ticket_office_address" placeholder="Address" [(ngModel)]="newTicketOffice.address" name="new_ticket_office_address" #new_ticket_office_address="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_ticket_office_hours">Opening hours</label>
+          <input type="text" class="form-control" id="new_ticket_office_hours" placeholder="Opening hours" [(ngModel)]="newTicketOffice.hours" name="new_ticket_office_hours" #new_ticket_office_hours="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="new_ticket_office_organiser">Organiser</label>
+          <select [(ngModel)]="newTicketOffice.o_id" id="new_ticket_office_organiser" class="form-control" name="new_ticket_office_organiser" #new_ticket_office_organiser="ngModel">
+            <option *ngFor="let organiser of organiserArray" [value]="organiser.o_id">{{organiser.name}}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-default">Add ticket office</button>
+      </form>
+      <h2>Edit ticket offices</h2>
+      <div *ngFor="let ticketOffice of ticketOfficeArray | pagination:ticketOfficePage; let i = index" class="ticket_office-container">
+        <form (ngSubmit)="onUpdateTicketOfficeSubmit(i)" #updateTicketOfficeForm="ngForm">
+          <div class="form-group">
+            <label for="update_ticket_office_{{ ticketOffice.to_id }}_address">Address</label>
+            <input type="text" class="form-control" id="update_ticket_office_{{ ticketOffice.to_id }}_address" placeholder="Address" [(ngModel)]="ticketOffice.address" name="update_ticket_office_{{ ticketOffice.to_id }}_address">
+          </div>
+          <div class="form-group">
+            <label for="update_ticket_office_{{ ticketOffice.to_id }}_hours">Opening hours</label>
+            <input type="text" class="form-control" id="update_ticket_office_{{ ticketOffice.to_id }}_hours" placeholder="Opening hours" [(ngModel)]="ticketOffice.hours" name="update_ticket_office_{{ ticketOffice.to_id }}_hours">
+          </div>
+          <div class="form-group">
+            <label for="update_ticket_office_{{ ticketOffice.to_id }}_organiser">Organiser</label>
+            <select [(ngModel)]="ticketOffice.o_id" id="update_ticket_office_{{ ticketOffice.to_id }}_organiser" class="form-control" name="update_ticket_{{ ticketOffice.to_id }}_office_organiser">
+              <option *ngFor="let organiser of organiserArray" [value]="organiser.o_id">{{organiser.name}}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-default">Update ticket office</button><a class="btn btn-danger" (click)="onDeleteTicketOffice(i)">Delete ticket office</a>
+        </form>
+
+      </div>
+      <ngb-pagination [collectionSize]="ticketOfficeArray?.length" [(page)]="ticketOfficePage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

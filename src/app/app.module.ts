@@ -11,10 +11,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
 import { ApiService } from './api.service';
-import { AuthGuardService } from './auth-guard.service';
+import { AuthGuardService, AdminAuthGuardService, EmployeeAuthGuardService } from './auth-guard.service';
 import { EventsComponent } from './events/events.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SingleEventComponent } from './single-event/single-event.component';
+import { OfficesComponent } from './offices/offices.component';
+import { AdminComponent } from './admin/admin.component';
+import { PaginationPipe } from './pagination.pipe';
 
 const ROUTES = [
     {
@@ -39,6 +42,15 @@ const ROUTES = [
         path: 'profile',
         canActivate: [AuthGuardService],
         component: ProfileComponent
+    },
+    {
+        path: 'ticket-offices',
+        component: OfficesComponent
+    },
+    {
+        path: 'admin',
+        canActivate: [AdminAuthGuardService],
+        component: AdminComponent
     }
 ];
 
@@ -48,7 +60,10 @@ const ROUTES = [
     LoginComponent,
     EventsComponent,
     ProfileComponent,
-    SingleEventComponent
+    SingleEventComponent,
+    OfficesComponent,
+    AdminComponent,
+    PaginationPipe
   ],
   imports: [
     BrowserModule,
@@ -59,7 +74,7 @@ const ROUTES = [
       NgbModule.forRoot(),
       NgLoadingBarModule.forRoot()
   ],
-  providers: [ApiService, AuthGuardService],
+  providers: [ApiService, AuthGuardService, AdminAuthGuardService, EmployeeAuthGuardService],
   bootstrap: [AppComponent]
 })
 

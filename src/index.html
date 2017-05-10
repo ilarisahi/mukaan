@@ -9,9 +9,17 @@
   <base href="/">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/SpinKit/css/spinkit.css" />
   <link rel="stylesheet" type="text/css" href="loading-bar.css" />
 </head>
 <body>
-  <app-root>Loading...</app-root>
+  <app-root>
+    <div class="preview-area" style="width: 60px;height: 60px;position: absolute;top: 0;left: 0;bottom: 60px;right: 0;margin: auto;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;">
+      <div class="sk-double-bounce">
+        <div class="sk-child sk-double-bounce1"></div>
+        <div class="sk-child sk-double-bounce2"></div>
+      </div>
+    </div>    
+  </app-root>
 </body>
 </html>

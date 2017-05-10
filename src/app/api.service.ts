@@ -14,16 +14,19 @@ import {Router} from '@angular/router'
 export class ApiService {
     localStorage: CoolLocalStorage;
     loggedIn: Subject<boolean> = new Subject<boolean>();
+    isGroup: Subject<string> = new Subject<string>();
     events: any;
 
     constructor(localStorage: CoolLocalStorage, private http: Http, private router: Router) {
         this.localStorage = localStorage;
         this.loggedIn.next(this.isLoggedIn());
+        this.isGroup.next(this.getUserGroup());
     }
 
     saveToken(token: string) {
         console.log(token);
         localStorage.setItem('user-token', token);
+        this.isGroup.next(this.getUserGroup());
         this.loggedIn.next(true);        
     }
 
@@ -35,6 +38,14 @@ export class ApiService {
         localStorage.removeItem('user-token');
         this.loggedIn.next(false);
         this.router.navigate(['/login']);
+    }
+
+    getUserGroup() {
+        let user: any;
+        user = this.currentUser();
+        if (user != null) {
+            return user.group;
+        }
     }
 
     register(newUser: NewUser) {
@@ -123,6 +134,54 @@ export class ApiService {
             .catch(this.handleError);
     }
 
+    getArtists() {
+
+        console.log('getting artists');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/artists', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    getClients() {
+
+        console.log('getting artists');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/clients', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    getOrganisers() {
+
+        console.log('getting organisers');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/organisers', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    getTicketOffices() {
+        console.log('getting ticket offices');
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/ticket-offices', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    getVenues() {
+        console.log('getting venues');
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/venues', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
     getEvent(id: any) {
         console.log('getting event ' + id);
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -138,6 +197,15 @@ export class ApiService {
         let options = new RequestOptions({ headers: headers });
         return this.http.get('/api/profile', options)
             .map(res => res.json());
+    }
+
+    getClientEvents() {
+        console.log('getting client events');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('api/profile/events', options)
+            .map(res => res.json())
+            .catch(this.handleError);
     }
 
     updateProfile(profile: any) {
