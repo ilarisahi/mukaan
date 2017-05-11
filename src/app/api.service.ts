@@ -37,6 +37,7 @@ export class ApiService {
     logout() {
         localStorage.removeItem('user-token');
         this.loggedIn.next(false);
+        this.isGroup.next(null);
         this.router.navigate(['/login']);
     }
 
@@ -124,8 +125,7 @@ export class ApiService {
         return Promise.reject(errMsg);
     }
 
-    getEvents() {
-        
+    getEvents() {        
         console.log('getting events');
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
@@ -134,22 +134,144 @@ export class ApiService {
             .catch(this.handleError);
     }
 
+    postEvents(obj: any) {
+        console.log('posting event');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/events', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    putEvents(obj: any) {
+        console.log('putting event');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/api/events', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+    deleteEvents(id: any) {
+        console.log('deleting event');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.delete('/api/events/' + id, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    getEventsAdmin() {
+        console.log('getting events for admin');
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/events-admin', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    getTickets() {
+        console.log('getting tickets');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/tickets', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    postTickets(obj: any) {
+        console.log('posting ticket');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/tickets', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    putTickets(obj: any) {
+        console.log('putting ticket');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/api/tickets', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+    deleteTickets(id: any) {
+        console.log('deleting ticket');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.delete('/api/tickets/' + id, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
     getArtists() {
 
         console.log('getting artists');
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.get('/api/artists', options)
             .map(res => res.json())
             .catch(this.handleError);
     }
 
+    postArtists(obj: any) {
+        console.log('posting artist');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/artists', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    putArtists(obj: any) {
+        console.log('putting artist');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/api/artists', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+    deleteArtists(id: any) {
+        console.log('deleting artist');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.delete('/api/artists/' + id, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
     getClients() {
 
-        console.log('getting artists');
+        console.log('getting clients');
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
         let options = new RequestOptions({ headers: headers });
         return this.http.get('/api/clients', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    postClients(obj: any) {
+        console.log('posting client');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/clients', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    putClients(obj: any) {
+        console.log('putting client');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/api/clients', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+    deleteClients(id: any) {
+        console.log('deleting client');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.delete('/api/clients/' + id, options)
             .map(res => res.json())
             .catch(this.handleError);
     }
@@ -164,6 +286,32 @@ export class ApiService {
             .catch(this.handleError);
     }
 
+    postOrganisers(obj: any) {
+        console.log('posting organiser');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/organisers', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    putOrganisers(obj: any) {
+        console.log('putting organiser');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/api/organisers', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+    deleteOrganisers(id: any) {
+        console.log('deleting organiser');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.delete('/api/organisers/' + id, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
     getTicketOffices() {
         console.log('getting ticket offices');
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -173,11 +321,98 @@ export class ApiService {
             .catch(this.handleError);
     }
 
+    postTicketOffices(obj: any) {
+        console.log('posting ticket office');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/ticket-offices', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    putTicketOffices(obj: any) {
+        console.log('putting ticket office');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/api/ticket-offices', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+    deleteTicketOffices(id: any) {
+        console.log('deleting ticket office');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.delete('/api/ticket-offices/' + id, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
     getVenues() {
         console.log('getting venues');
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.get('/api/venues', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    postVenues(obj: any) {
+        console.log('posting venue:');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/venues', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    putVenues(obj: any) {
+        console.log('putting venues');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/api/venues', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+    deleteVenues(id: any) {
+        console.log('deleting venues');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.delete('/api/venues/'+id, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    getEventsMain() {
+        console.log('getting main events');
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/events-main', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    postEventsMain(obj: any) {
+        console.log('posting venue:');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/events-main', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    putEventsMain(obj: any) {
+        console.log('putting venues');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/api/events-main', obj, options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+    deleteEventsMain(id: any) {
+        console.log('deleting venues');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.delete('/api/events-main/' + id, options)
             .map(res => res.json())
             .catch(this.handleError);
     }

@@ -18,6 +18,7 @@ import { SingleEventComponent } from './single-event/single-event.component';
 import { OfficesComponent } from './offices/offices.component';
 import { AdminComponent } from './admin/admin.component';
 import { PaginationPipe } from './pagination.pipe';
+import { SearchPipe } from './search.pipe';
 
 const ROUTES = [
     {
@@ -51,7 +52,11 @@ const ROUTES = [
         path: 'admin',
         canActivate: [AdminAuthGuardService],
         component: AdminComponent
-    }
+    },
+    {
+        path: '**',
+        redirectTo: 'profile'
+    }      
 ];
 
 @NgModule({
@@ -63,7 +68,8 @@ const ROUTES = [
     SingleEventComponent,
     OfficesComponent,
     AdminComponent,
-    PaginationPipe
+    PaginationPipe,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
