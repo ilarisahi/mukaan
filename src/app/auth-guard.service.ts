@@ -61,9 +61,9 @@ export class EmployeeAuthGuardService implements CanActivate {
     _employee: any;
 
     constructor(private apiService: ApiService, private router: Router) {
-        this.isEmployee = apiService.getUserGroup() === ('admin' || 'employee');
+        this.isEmployee = (apiService.getUserGroup() === 'admin' || apiService.getUserGroup() === 'employee') ? true :false;
         this._employee = apiService.isGroup.subscribe((value) => {
-            this.isEmployee = value === ('admin' || 'employee');
+            this.isEmployee = (value === 'admin' || value === 'employee')?true:false;
         });
     }
 

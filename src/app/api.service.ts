@@ -469,4 +469,13 @@ export class ApiService {
             },
             (err) => console.log('login error: ' + err));
     }
+
+    getStats() {
+        console.log('getting stats');
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.getToken() });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('api/stats', options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
 }

@@ -19,6 +19,7 @@ import { OfficesComponent } from './offices/offices.component';
 import { AdminComponent } from './admin/admin.component';
 import { PaginationPipe } from './pagination.pipe';
 import { SearchPipe } from './search.pipe';
+import { StatsComponent } from './stats/stats.component';
 
 const ROUTES = [
     {
@@ -54,6 +55,11 @@ const ROUTES = [
         component: AdminComponent
     },
     {
+        path: 'stats',
+        canActivate: [EmployeeAuthGuardService],
+        component: StatsComponent
+    },
+    {
         path: '**',
         redirectTo: 'profile'
     }      
@@ -69,7 +75,8 @@ const ROUTES = [
     OfficesComponent,
     AdminComponent,
     PaginationPipe,
-    SearchPipe
+    SearchPipe,
+    StatsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, ViewChild, ViewChildren, } from '@angular/core';
 import { ApiService } from '../api.service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-admin',

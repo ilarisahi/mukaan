@@ -10,6 +10,7 @@
     <button *ngIf="isLoggedIn" type="button" routerLink="/profile" routerLinkActive="active" class="btn btn-primary btn-lg">Profile</button>
     <button type="button" routerLink="/events" routerLinkActive="active" class="btn btn-primary btn-lg">Events</button>
     <button type="button" routerLink="/ticket-offices" routerLinkActive="active" class="btn btn-primary btn-lg">Offices</button>
+    <button *ngIf="userGroup == 'employee' || userGroup == 'admin'" type="button" routerLink="/stats" routerLinkActive="active" class="btn btn-primary btn-lg">Stats</button>
     <button *ngIf="userGroup == 'admin'" type="button" routerLink="/admin" routerLinkActive="active" class="btn btn-primary btn-lg">Admin</button>
   </p>
 </nav>

@@ -749,4 +749,17 @@ router.get('/profile/events/', auth, function (req, res, next) {
     });
 });
 
+router.get('/stats', function (req, res, next) {
+    //if (req.user.group != 'admin' || req.user.group != 'employee') return res.status(403).send({ message: 'not authorized' });
+    db.serialize(function () {
+        db.all(selectQueries[12], function (err, rows) {
+            if (err || rows == null) {
+                winston.error(err);
+                return res.status(500).send({ message: err });
+            }
+            return res.status(200).send(rows);
+        });
+    });
+});
+
 module.exports = router;
