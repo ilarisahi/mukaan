@@ -6,20 +6,21 @@
 <div *ngFor="let mEvent of stats" class="event-main">
   <div class="card">
     <div class="card-block">
-      <h4 class="card-title">{{ mEvent.name }} - ({{mEvent.e_id}})</h4>
-      <h6 class="card-subtitle mb-2 text-muted">{{ mEvent.artists }}</h6>
-      <p class="card-text">{{ mEvent.description }}</p>
-      <p class="card-text">Total cost: {{mEvent.cost}}</p>
+      <h4 class="card-title">{{ mEvent.name }} - (event id: {{mEvent.e_id}})</h4>
+      <h6 class="card-subtitle mb-2 text-muted">Artist(s): {{ mEvent.artists }}</h6>
+      <p class="card-text"><b>Event description:</b> {{ mEvent.description }}</p>
+      <p class="card-text">Total cost: <b>{{mEvent.cost}} $</b></p>
+      <h5>Shows:</h5>
       <div *ngFor="let event of mEvent?.events" class="event">
-        <h6 class="card-subtitle mb-2 text-muted">{{ event.starts }} - {{ event.ends }} || {{ event.venue }}</h6>
-        <h3>Tickets sold:</h3>
-        <p>Class 1: {{event.class_1}} / {{event.capacity_1}}, Class 1: {{event.class_2}} / {{event.capacity_2}}, Class 1: {{event.class_3}} / {{event.capacity_3}}</p>
+        <p>{{ event.starts }} - {{ event.ends }}, venue: {{ event.venue }}</p>
+        <h6>Tickets sold:</h6>
+        <p>Class 1: {{event.class_1}} / {{event.capacity_1}}, Class 2: {{event.class_2}} / {{event.capacity_2}}, Class 3: {{event.class_3}} / {{event.capacity_3}}</p>
         <p>Total: {{event.class_1 + event.class_2 + event.class_3}} / {{event.capacity_1 + event.capacity_2 + event.capacity_3}}</p>
       </div>
     </div>
     <div class="card-footer">
-      <p>Total profit atm: {{mEvent.profit - mEvent.cost}}</p>
-      <p>Potential profit: {{mEvent.potential - mEvent.cost}}</p>
+      <p>Total profit atm: <b>{{mEvent.profit - mEvent.cost}} $</b> (profit: {{mEvent.profit}} $, cost: {{mEvent.cost}} $)</p>
+      <p>Potential profit: <b>{{mEvent.potential - mEvent.cost}} $</b> (potential: {{mEvent.potential}} $)</p>
     </div>
   </div>
   <div style="margin-top: 20px"></div>

@@ -1066,3 +1066,55 @@
 .glyphicon-menu-up:before {
   content: "\e260";
 }
+
+.pagination, .nav-pills {
+  overflow: auto;
+}
+
+.sk-double-bounce .sk-child {
+  background: white;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #0062b7;
+}
+
+.loading-container img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 150px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.mukaan-header {
+  position: fixed;
+  top: 0;
+  width: 0;
+  left: 0;
+  height: 70px;
+  background: #0062b7;
+  padding: 5px;
+  width: 100%;
+  z-index: 20;
+}
+
+.mukaan-header img {
+  height: 50px;
+}
+
+.btn.btn-primary {
+  margin: 10px 0 0 0;
+}
+
+.navigation-bar {
+  margin-bottom: 10px;
+}

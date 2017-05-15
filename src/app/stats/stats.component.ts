@@ -39,15 +39,14 @@ export class StatsComponent implements OnInit {
                               class_3: data[j].class_3
                           }
                       );
-                      this.stats[this.last_index].profit = + data[j].class_1 * data[j].fee * 2.5 + data[j].class_2 * data[j].fee * 1.5 + data[j].class_1 * data[j].fee;
-                      this.stats[this.last_index].potential = data[j].capacity_1 * data[j].fee * 2.5 + data[j].capacity_2 * data[j].fee * 1.5 + data[j].capacity_1 * data[j].fee;
+                      this.stats[this.last_index].profit += data[j].class_1 * data[j].fee * 2.5 + data[j].class_2 * data[j].fee * 1.5 + data[j].class_1 * data[j].fee;
+                      this.stats[this.last_index].potential += data[j].capacity_1 * data[j].fee * 2.5 + data[j].capacity_2 * data[j].fee * 1.5 + data[j].capacity_1 * data[j].fee;
                   } else {
-                      console.log(data[j].e_id, )
                       this.last_index = this.stats.push({
                           e_id: data[j].e_id,
                           name: data[j].name,
                           description: data[j].description,
-                          artists: (data[j].artists != null) ? data[j].artists.replace(",", ", "): "",
+                          artists: (data[j].artists != null) ? data[j].artists.replace(/,/g, ", "): "",
                           cost: data[j].cost,
                           profit: data[j].class_1 * data[j].fee * 2.5 + data[j].class_2 * data[j].fee * 1.5 + data[j].class_1 * data[j].fee,
                           potential: data[j].capacity_1 * data[j].fee * 2.5 + data[j].capacity_2 * data[j].fee * 1.5 + data[j].capacity_1 * data[j].fee,

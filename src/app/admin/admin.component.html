@@ -40,7 +40,7 @@
           <button type="submit" class="btn btn-default">Update artist</button><a class="btn btn-danger" (click)="onDeleteArtist(artist.a_id)">Delete artist</a>
         </form>        
       </div>
-      <ngb-pagination *ngIf="artistArray?.length > 10" [collectionSize]="artistArray?.length" [(page)]="artistPage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+      <ngb-pagination *ngIf="artistArray?.length > 10" [collectionSize]="artistArray?.length" [(page)]="artistPage" [maxSize]="5" [rotate]="true" aria-label="Default pagination"></ngb-pagination>
     </ng-template>
   </ngb-tab>
   <ngb-tab>
@@ -100,7 +100,7 @@
           <button type="submit" class="btn btn-default">Update venue</button><a class="btn btn-danger" (click)="onDeleteVenue(venue.v_id)">Delete venue</a>
         </form>
         </div>
-      <ngb-pagination *ngIf="venueArray?.length > 10" [collectionSize]="venueArray?.length" [(page)]="venuePage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+      <ngb-pagination *ngIf="venueArray?.length > 10" [collectionSize]="venueArray?.length" [(page)]="venuePage" [maxSize]="5" [rotate]="true" aria-label="Default pagination"></ngb-pagination>
     </ng-template>
   </ngb-tab>
   <ngb-tab>
@@ -169,7 +169,7 @@
         </form>
 
       </div>
-      <ngb-pagination *ngIf="eventMainArray?.length > 10" [collectionSize]="eventMainArray?.length" [(page)]="eventMainPage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+      <ngb-pagination *ngIf="eventMainArray?.length > 10" [collectionSize]="eventMainArray?.length" [(page)]="eventMainPage" [maxSize]="5" [rotate]="true" aria-label="Default pagination"></ngb-pagination>
     </ng-template>
   </ngb-tab>
   <ngb-tab>
@@ -237,7 +237,7 @@
           <button type="submit" class="btn btn-default">Update event</button><a class="btn btn-danger" (click)="onDeleteEvent(event.ei_id)">Delete event</a>
         </form>
       </div>
-      <ngb-pagination *ngIf="eventArray?.length > 10" [collectionSize]="eventArray?.length" [(page)]="eventPage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+      <ngb-pagination *ngIf="eventArray?.length > 10" [collectionSize]="eventArray?.length" [(page)]="eventPage" [maxSize]="5" [rotate]="true" aria-label="Default pagination"></ngb-pagination>
     </ng-template>
   </ngb-tab>
   <ngb-tab>
@@ -288,7 +288,7 @@
           <button type="submit" class="btn btn-default">Update ticket</button><a class="btn btn-danger" (click)="onDeleteTicket(ticket.eic_id)">Delete ticket</a>
         </form>
       </div>
-      <ngb-pagination *ngIf="ticketArray?.length > 10" [collectionSize]="ticketArray?.length" [(page)]="ticketPage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+      <ngb-pagination *ngIf="ticketArray?.length > 10" [collectionSize]="ticketArray?.length" [(page)]="ticketPage" [maxSize]="5" [rotate]="true" aria-label="Default pagination"></ngb-pagination>
     </ng-template>
   </ngb-tab>
   <ngb-tab>
@@ -334,7 +334,7 @@
         
       </div>
       <div>Default pagination</div>
-      <ngb-pagination *ngIf="clientArray?.length > 10" [collectionSize]="clientArray?.length" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" [(page)]="clientPage" aria-label="Default pagination"></ngb-pagination>
+      <ngb-pagination *ngIf="clientArray?.length > 10" [collectionSize]="clientArray?.length" [maxSize]="5" [rotate]="true" [(page)]="clientPage" aria-label="Default pagination"></ngb-pagination>
     </ng-template>
   </ngb-tab>
   
@@ -372,7 +372,7 @@
         </form>
 
       </div>
-      <ngb-pagination *ngIf="organiserArray?.length > 10" [collectionSize]="organiserArray?.length" [(page)]="organiserPage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+      <ngb-pagination *ngIf="organiserArray?.length > 10" [collectionSize]="organiserArray?.length" [(page)]="organiserPage" [maxSize]="5" [rotate]="true" aria-label="Default pagination"></ngb-pagination>
     </ng-template>
   </ngb-tab>
   <ngb-tab>
@@ -421,7 +421,7 @@
         </form>
 
       </div>
-      <ngb-pagination *ngIf="ticketOfficeArray?.length > 10" [collectionSize]="ticketOfficeArray?.length" [(page)]="ticketOfficePage" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" aria-label="Default pagination"></ngb-pagination>
+      <ngb-pagination *ngIf="ticketOfficeArray?.length > 10" [collectionSize]="ticketOfficeArray?.length" [(page)]="ticketOfficePage" [maxSize]="5" [rotate]="true" aria-label="Default pagination"></ngb-pagination>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

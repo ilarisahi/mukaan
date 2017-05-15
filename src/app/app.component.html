@@ -1,18 +1,16 @@
 ﻿
 <div class="container">
   <ng-loading-bar></ng-loading-bar>
-<h1>
-  {{title}}
-</h1>
-<nav>
-  <p>
-    <button *ngIf="!isLoggedIn" type="button" routerLink="/login" routerLinkActive="active" class="btn btn-primary btn-lg">Login | Register</button>
-    <button *ngIf="isLoggedIn" type="button" routerLink="/profile" routerLinkActive="active" class="btn btn-primary btn-lg">Profile</button>
-    <button type="button" routerLink="/events" routerLinkActive="active" class="btn btn-primary btn-lg">Events</button>
-    <button type="button" routerLink="/ticket-offices" routerLinkActive="active" class="btn btn-primary btn-lg">Offices</button>
-    <button *ngIf="userGroup == 'employee' || userGroup == 'admin'" type="button" routerLink="/stats" routerLinkActive="active" class="btn btn-primary btn-lg">Stats</button>
-    <button *ngIf="userGroup == 'admin'" type="button" routerLink="/admin" routerLinkActive="active" class="btn btn-primary btn-lg">Admin</button>
-  </p>
-</nav>
-<router-outlet></router-outlet>
+  <!--<div class="mukaan-header">
+    <img src="logo.png" alt="logo">
+  </div>-->
+  <nav class="navigation-bar">
+      <button *ngIf="!isLoggedIn" type="button" routerLink="/login" routerLinkActive="active" class="btn btn-primary btn-lg">Login | Register</button>
+      <button *ngIf="isLoggedIn" type="button" routerLink="/profile" routerLinkActive="active" class="btn btn-primary btn-lg">Profile</button>
+      <button type="button" routerLink="/events" routerLinkActive="active" class="btn btn-primary btn-lg">Events</button>
+      <button type="button" routerLink="/ticket-offices" routerLinkActive="active" class="btn btn-primary btn-lg">Offices</button>
+      <button *ngIf="userGroup == 'employee' || userGroup == 'admin'" type="button" routerLink="/stats" routerLinkActive="active" class="btn btn-primary btn-lg">Stats</button>
+      <button *ngIf="userGroup == 'admin'" type="button" routerLink="/admin" routerLinkActive="active" class="btn btn-primary btn-lg">Admin</button>
+  </nav>
+  <router-outlet></router-outlet>
 </div>
