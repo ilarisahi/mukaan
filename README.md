@@ -6,8 +6,8 @@ You need to have Node.js installed
 Then you can do  
 ```bash
 npm install
-node start
-´´´
+npm start
+```
 to start the service
 
 ## Features
